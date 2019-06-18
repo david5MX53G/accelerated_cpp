@@ -1,26 +1,25 @@
 #include <iostream>
 #include <string>
 
+using std::cin; using std::endl; using std::cout; using std::string;
+
 int main()
 {
-	std::cout << "Please enter your first name: ";
-	std::string name;
-	std::cin >> name;
+   cout << "What's your name? ";
+   string name;
+   cin >> name;
+   const string greeting = "Hello, " + name + "!";
 
-	// build some constants
-	const std::string greeting = "Hello, " + name + "!";
-	const std::string spaces(greeting.size(), ' ');
-	const std::string second = "* " + spaces + " *";
-	const std::string first(second.size(), '*');
+   // blanks surrounding greeting above and on either side
+   const int pad = 1;
 
-	// write stuff
-	std::cout << std::endl;
-	std::cout << first << std::endl;
-	std::cout << second << std::endl;
-	std::cout << "* " << greeting << " *" << std::endl;
-    std::cout << second << std::endl;
-    std::cout << first << std::endl;
+   // one blank row above and one below plus a row of stars above and below plus the greeting
+   const int rows = pad * 2 + 3;
 
-    // return
-    return 0;
+   // length of greeting string plus 1 space on either side + one star on either side
+   const string::size_type cols = greeting.size() + pad * 2 + 2;
+
+   cout << endl;
+
+
 }
