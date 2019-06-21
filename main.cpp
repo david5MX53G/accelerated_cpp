@@ -1,41 +1,57 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
+#include <ios>
+#include <vector>
+#include <iomanip>
 
-using std::cin; using std::endl; using std::cout; using std::string;
+using std::cin;         using std::endl;
+using std::cout;        using std::string;
+using std::setprecision;using std::sort;
+using std::streamsize;  using std::vector;
 
-int main()
-{
-   cout << "What's your name? ";
-   string name;
-   cin >> name;
-   const string greeting = "Hello, " + name + "!";
+int main() {
+    // greeting
+    cout << "What's your name? ";
+    string name;
+    cin >> name;
+    cout << "Hello, " << name << "!" << endl;
 
-   // blanks surrounding greeting above and on either side
-   const int pad = 1;
+    // get grades
+    cout << "Enter midterm and final exam grades: ";
+    double midterm, final;
+    cin >> midterm >> final;
+    cout << "Midterm: " << midterm << endl;
+    cout << "Final: " << final << endl;
+    cout << "Enter all your homework grades, ended by -1: ";
+    vector<double> homework;
+    double x;
 
-   // one blank row above and one below plus a row of stars above and below plus the greeting
-   const int rows = pad * 2 + 3;
+    // invariant: homework contains all homework grades read so far
+    typedef vector<double>::size_type vec_sz;
+    vec_sz size = 0;
+    while (cin >> x && x != -1) {
+        homework.push_back(x);
+        size = homework.size();
+    }
 
-   // length of greeting string plus 1 space on either side + one star on either side
-   const string::size_type cols = greeting.size() + pad * 2 + 2;
+    // check input
+    if (size == 0) {
+        cout << endl << "ENTER YOUR GRADES!";
+        return 1;
+    }
 
-   cout << endl;
-
-   for (int r = 0; r != rows; ++r) {
-       string::size_type c = 0;
-       while (c != cols) {
-           if (r == pad +1 && c == pad +1) {
-               cout << greeting;
-               c += greeting.size();
-           } else {
-               if (r == 0 || r == rows -1 || c == 0 || c == cols -1)
-                   cout << "*";
-               else
-                   cout << " ";
-               ++c;
-           }
-       }
-       cout << endl;
-   }
-   return 0;
+    // compute grades
+    else {
+        sort(homework.begin(), homework.end());
+        vec_sz mid = size/2;
+        cout << endl << "Grades: " << size;
+        double median;
+        median = size % 2 == 0 ? (homework[mid] + homework[mid-1]) / 2 : homework[mid];
+        cout << endl << "Median: " << median;
+        streamsize prec = cout.precision();
+        cout << endl << "Your final grade: " << setprecision(3) << 0.2 * midterm + 0.4 * final + 0.4 * median
+             << setprecision(prec);
+        return 0;
+    }
 }
