@@ -1,0 +1,18 @@
+<noun> cat
+<noun> dog
+<noun> table
+<noun> dragon
+<noun-phrase> <noun>
+<noun-phrase> <adjective> <noun-phrase>
+<adjective> large
+<adjective> brown
+<adjective> absurd
+<adjective> raging
+<verb> jumps
+<verb> sits
+<verb> screams
+<location> on the stairs
+<location> under the sky
+<location> wherever it wants
+<location> in the deep
+<sentence> the <noun-phrase> <verb> <location>
