@@ -17,6 +17,8 @@ using std::logic_error;
 
 typedef vector<string> Rule;
 typedef vector<Rule> Rule_collection;
+
+// create a new map with key-value pairs string (key) and Rule_collection (value)
 typedef map<string, Rule_collection> Grammar;
 
 // istream should be in the format <category> word1 word2 word3 etc.
@@ -28,6 +30,8 @@ Grammar read_grammar(istream& in) {
        vector<string> entry = split(line);
 
        if(!entry.empty()) {
+           // map[x] accesses the value in map with the key 'x', but a new key-value pair will be created if 'x' is not
+           // yet present. The new pair will be "value-initialized", meaning built-in types will be given value "0"
            ret[entry[0]].push_back(
                Rule(entry.begin() + 1, entry.end())
            );
@@ -50,6 +54,7 @@ int nrand(int n) {
    const int bucket_size = RAND_MAX / n;
    int r;
 
+   // in a "do while" statement, the statement is executed first, and the condition tested second
    do r = rand() / bucket_size;
    while (r >= n);
 
@@ -65,8 +70,7 @@ void gen_aux(const Grammar& g, const string& word, vector<string>& ret) {
     if (!bracketed(word)) {
         ret.push_back(word);
     } else {
-        // locate corresponding rule using map.find()
-        // using g[word] would insert a new value when no match is found
+        // map.find(arg) returns an iterator at index of key matching arg or map.end() if no match found
         Grammar::const_iterator it = g.find(word);
 
         // map.find() returns the end of the map when no matches are found
