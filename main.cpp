@@ -18,6 +18,23 @@ using std::logic_error;
 typedef vector<string> Rule;
 typedef vector<Rule> Rule_collection;
 
+// the template header precedes a template function with a "type parameter"
+// a type parameter defines a type which can be used subsequently, very much like a variable definition
+// when we call "median(vector<int> bob)", the type param "T" is bound to "int" throughout the template function
+template <class T>
+T median(vector<T> v) {
+    // use "typename" to define types (e.g., "vec_sz") wherein type parameters (e.g., "T") are used
+    typedef typename vector<T>::size_type vec_sz;
+
+    vec_sz size = v.size();
+    if (size == 0)
+        throw domain_error("median of an empty vector");
+
+    sort(v.begin(), v.end());
+    vec_sz mid = size/2;
+    return size % 2 == 0 ? (v[mid] + v[mid-1]) / 2 : v[mid];
+}
+
 // create a new map with key-value pairs string (key) and Rule_collection (value)
 typedef map<string, Rule_collection> Grammar;
 
