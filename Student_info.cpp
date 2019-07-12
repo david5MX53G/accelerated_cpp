@@ -30,3 +30,16 @@ istream& read_hw(istream& in, vector<double>& hw) {
     }
     return in;
 }
+
+istream& Student_info::read(istream& in) {
+    in >> name >> midterm >> final;
+    read_hw(in, homework);
+    return in;
+}
+
+// const member functions have "const" on the end of their def; these functions aren't allowed to modify the internal
+// state of the parent object
+double Student_info::grade() const {
+    // double colon forces a call to the version of "grade" that is not in the implicit namespace Student_info::
+    return ::grade(midterm, final, homework);
+}
