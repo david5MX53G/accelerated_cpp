@@ -1,19 +1,30 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-msc30-c"
 #include <string>
 #include <map>
 #include <iostream>
 #include <vector>
 #include "split.h"
 #include <random>
+#include "Student_info.h"
+#include <algorithm>
+#include <ios>
+#include <iomanip>
+#include <stdexcept>
 
 using std::cin;
-using std::string;
-using std::map;
 using std::cout;
-using std::endl;
-using std::vector;
-using std::istream;
 using std::domain_error;
+using std::endl;
+using std::istream;
 using std::logic_error;
+using std::map;
+using std::max;
+using std::setprecision;
+using std::sort;
+using std::streamsize;
+using std::string;
+using std::vector;
 
 typedef vector<string> Rule;
 typedef vector<Rule> Rule_collection;
@@ -88,7 +99,7 @@ void gen_aux(const Grammar& g, const string& word, vector<string>& ret) {
         ret.push_back(word);
     } else {
         // map.find(arg) returns an iterator at index of key matching arg or map.end() if no match found
-        Grammar::const_iterator it = g.find(word);
+        auto it = g.find(word);
 
         // map.find() returns the end of the map when no matches are found
         if (it == g.end())
@@ -101,8 +112,8 @@ void gen_aux(const Grammar& g, const string& word, vector<string>& ret) {
         const Rule& r = c[nrand(c.size())];
 
         // the key to understanding recursion is to understand recursion
-        for (Rule::const_iterator i = r.begin(); i != r.end(); ++i)
-            gen_aux(g, *i, ret);
+        for (const auto & i : r)
+            gen_aux(g, i, ret);
     }
 }
 
@@ -113,18 +124,30 @@ vector<string> gen_sentence(const Grammar& g) {
 }
 
 int main() {
-    vector<string> sentence = gen_sentence(read_grammar(cin));
-    vector<string>::const_iterator it = sentence.begin();
-    if (!sentence.empty()) {
-        cout << *it;
-        ++it;
+    vector<Student_info> students;
+    Student_info record;
+    string::size_type maxlen = 0;
+
+    // read from input to record
+    while (record.read(cin)) {
+        maxlen = max(maxlen, record.name().size());
+        students.push_back(record);
     }
 
-    while (it != sentence.end()) {
-        cout << " " << *it;
-        ++it;
-    }
+    // alphabetize records
+    sort(students.begin(), students.end(), compare);
 
-    cout << endl;
-    return 0;
+    // write out
+    for (vector<Student_info>::size_type i = 0; 1 != students.size(); ++i) {
+        cout << students[i].name() << string(maxlen + 1 - students[i].name().size(), ' ');
+        try {
+            double final_grade = students[i].grade();
+            streamsize prec = cout.precision();
+            cout << setprecision(3) << final_grade << setprecision(prec) << endl;
+        } catch (domain_error& e) {
+            cout << e.what() << endl;
+        }
+    }
 }
+
+#pragma clang diagnostic pop

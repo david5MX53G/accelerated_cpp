@@ -1,16 +1,16 @@
 #include "Student_info.h"
+#include "grade.h"
 
 using std::istream; using std::vector;
 
-bool compare(const Student_info& x, const Student_info& y) {
-    return x.name < y.name;
-}
+// between the : and { are "constructor initializers"; these set default values of the given members
+Student_info::Student_info(): midterm(0), final(0) {}
 
-// create Student_info from input stream
-istream& read(istream& is, Student_info& s) {
-    is >> s.name >> s.midterm >> s.final;
-    read_hw(is, s.homework);
-    return is;
+// midterm and final are populated by "read(is)"
+Student_info::Student_info(istream& is): midterm(0), final(0) { read(is); }
+
+bool compare(const Student_info& x, const Student_info& y) {
+    return x.name() < y.name();
 }
 
 // code for read_hw(istream, vector<double>& from 57
@@ -32,7 +32,7 @@ istream& read_hw(istream& in, vector<double>& hw) {
 }
 
 istream& Student_info::read(istream& in) {
-    in >> name >> midterm >> final;
+    in >> n >> midterm >> final;
     read_hw(in, homework);
     return in;
 }

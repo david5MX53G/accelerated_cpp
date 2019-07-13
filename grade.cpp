@@ -1,25 +1,20 @@
-#include <stdexcept>
+//
+// Created by branch on 7/13/19.
+//
 #include <vector>
-#include "grade.h"
+#include <stdexcept>
 #include "median.h"
-#include "Student_info.h"
 
-using std::domain_error; using std::vector;
+using std::domain_error;
+using std::vector;
 
-// code for grade(double, double, double) from 52
 double grade(double midterm, double final, double homework) {
     return 0.2 * midterm + 0.4 * final + 0.4 * homework;
 }
 
-// code for grade(double, double, const vector<double>) from 54
 double grade(double midterm, double final, const vector<double>& hw) {
-    if (hw.size() == 0)
-        throw domain_error("student has done no homework");
-    return grade(midterm, final, median(hw));
-}
+   if (hw.empty())
+       throw domain_error("student has done no homework!");
 
-// calculate grade for Student_info struct
-double grade(const Student_info& s) {
-    return grade(s.midterm, s.final, s.homework);
+   return grade(midterm, final, median(hw));
 }
-

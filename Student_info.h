@@ -3,15 +3,19 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "grade.h"
 
-struct Student_info {
-    std::string name;
-    double midterm, final;
-    std::vector<double> homework;
-
+class Student_info {
+public:
+    Student_info();
+    explicit Student_info(std::istream&);
+    std::string name() const { return n; }
+    bool valid() const { return !homework.empty(); }
     std::istream& read(std::istream&);
     double grade() const;
+private:
+    std::string n;
+    double midterm, final;
+    std::vector<double> homework;
 };
 
 bool compare(const Student_info&, const Student_info&);
