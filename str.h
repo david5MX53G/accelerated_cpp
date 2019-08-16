@@ -25,6 +25,7 @@ public:
     // operators
     char& operator[](size_type i) { return data[i]; }
     const char& operator[](size_type i) const { return data[i]; }
+    friend std::istream& operator>>(std::istream&, Str&);
 
     // other
     size_type size() const { return data.size(); }

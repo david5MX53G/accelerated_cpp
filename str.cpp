@@ -19,7 +19,7 @@ ostream& operator<<(ostream& os, const Str& s) {
 // pg 216
 istream& operator>>(istream& is, Str& s) {
     // clear existing value(s)
-    s.data.clear(); // compile err: data is private
+    s.data.clear();
 
     // read and discard leading whites
     char c;
@@ -28,7 +28,7 @@ istream& operator>>(istream& is, Str& s) {
     }
 
     if (is) {
-        do s.data.push_back(c); // compile err: data is private
+        do s.data.push_back(c);
         while (is.get(c) && !isspace(c));
 
         // if we read whites, then put it back on the stream
