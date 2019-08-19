@@ -6,7 +6,7 @@
 #define ACCELERATED_CPP_GRAD_H
 #include <iostream>
 
-class Grad {
+class Grad: public Core {
 public:
     Grad();
     Grad(std::istream&);
