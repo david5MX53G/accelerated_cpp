@@ -1,37 +1,46 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cert-msc30-c"
-#include "vec.h"
-#include <vector>
-#include <iostream>
-#include <sstream>
+#include "Grad.h"
+#include <algorithm>
+#include <iomanip>
 
-using std::cout;
+using std::streamsize;
 using std::endl;
-using std::vector;
 using std::string;
-using std::istringstream;
-using std::cerr;
+using std::max;
+using std::cin;
+using std::vector;
+using std::sort;
+using std::cout;
+using std::setprecision;
+using std::domain_error;
 
-int main(int argc, char** argv) {
-    istringstream ss1(argv[1]);
-    int x;
-    if (!(ss1 >> x)) {
-        cerr << "Invalid int: " << argv[1] << endl;
-    } else if (!ss1.eof()) {
-        cerr << "Trailing chars after int: " << argv[1] << endl;
+int main() {
+    vector<Core> students;
+    Core record;
+    string::size_type maxlen = 0;
+
+    // read data into students vector
+    while (record.read(cin)) {
+        maxlen = max(maxlen, record.name().size());
+        students.push_back(record);
     }
 
-    int y;
-    istringstream ss2(argv[2]);
-    if (!(ss2 >> y)) {
-        cerr << "Invalid int: " << argv[2] << endl;
-    } else if (!ss2.eof()) {
-        cerr << "Trailing chars after int: " << argv[2] << endl;
-    }
+    // alphabetize student vector
+    sort(students.begin(), students.end(), compare);
 
-    Vec<int> v = Vec<int>(x, y);
-    for (int i = 0; i != v.size(); i++) {
-       cout << v[i] << endl;
+    // write names and grades
+    for (vector<Core>::size_type i = 0; i != students.size(); ++i) {
+        cout << students[i].name()
+             << string(maxlen + 1 - students[i].name().size(), ' ');
+        try {
+            double final_grade = students[i].grade();
+            streamsize prec = cout.precision();
+            cout << setprecision(3) << final_grade
+                 << setprecision(prec) << endl;
+        } catch (domain_error e) {
+            cout << e.what() << endl;
+        }
     }
     return 0;
 }

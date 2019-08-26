@@ -5,20 +5,26 @@
 #ifndef ACCELERATED_CPP_CORE_H
 #define ACCELERATED_CPP_CORE_H
 #include <iostream>
+#include <vector>
 
 class Core {
 public:
-    Core();
-    Core(std::istream&);
+    // constructors
+    Core(): midterm(0), final(0) { }
+    Core(std::istream& is) { read(is); }
+
+    // other stuff
     std::string name() const;
-    std::istream& read(std::istream&);
-    double grade() const;
-private:
+    virtual std::istream& read(std::istream&);
+    virtual double grade() const;
+protected:
+    // accessible to derived classes
     std::istream& read_common(std::istream&);
-    std::string n;
     double midterm, final;
     std::vector<double> homework;
+private:
+    // accessible only to this class
+    std::string n;
 };
-
 
 #endif //ACCELERATED_CPP_CORE_H
