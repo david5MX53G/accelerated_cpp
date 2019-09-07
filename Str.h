@@ -9,8 +9,6 @@
 #include "Ptr.h"
 
 class Str {
-    friend std::istream& operator>>(std::istream&, Str&);
-
 public:
     Str& operator+=(const Str s) {
         data.make_unique();
@@ -47,6 +45,7 @@ private:
     Ptr< Vec<char> > data;
 };
 
+friend std::istream& operator>>(std::istream&, Str&);
 std::ostream& operator<<(std::ostream&, const Str&);
 Str operator+(const Str&, const Str&);
 

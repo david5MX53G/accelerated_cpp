@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 #include "Handle.h"
+#include "median.h"
+#include "grade.h"
 
 class Core {
     friend class Student_info;
@@ -34,8 +36,7 @@ private:
 bool compare_Core_ptrs(const Core*, const Core*);
 
 bool compare_Core_Handles(const Handle<Core>& hc1, const Handle<Core>& hc2) {
-    return hc1.p->name() < hc2.p->name();
+    return hc1->name() < hc2->name();
 }
-
 
 #endif //ACCELERATED_CPP_CORE_H

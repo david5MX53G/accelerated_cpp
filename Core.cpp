@@ -11,7 +11,7 @@ using std::string;
 string Core::name() const { return n; }
 
 double Core::grade() const {
-    return Core::grade(midterm, final, homework);
+    return ::grade(midterm, final, homework);
 }
 
 istream& Core::read_common(istream& in) {
