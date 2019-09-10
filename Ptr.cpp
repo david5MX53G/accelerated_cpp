@@ -12,7 +12,7 @@ Ptr<T>::~Ptr() {
     }
 }
 template <class T>
-Ptr<T>::operator*() const {
+T& Ptr<T>::operator*() const {
     if (p)
         return *p;
     throw std::runtime_error("unbound Ref_handle");

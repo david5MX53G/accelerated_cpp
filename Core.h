@@ -9,9 +9,9 @@
 #include "Handle.h"
 #include "median.h"
 #include "grade.h"
+#include <string>
 
 class Core {
-    friend class Student_info;
 public:
     // (de-)constructors
     virtual ~Core() { }
@@ -22,9 +22,11 @@ public:
     std::string name() const;
     virtual std::istream& read(std::istream&);
     virtual double grade() const;
+    std::istream& read_hw(std::istream& in, std::vector<double>& hw);
+    virtual Core* clone() const { return new Core(*this); }
+
 protected:
     // accessible to derived classes
-    virtual Core* clone() const { return new Core(*this); }
     std::istream& read_common(std::istream&);
     double midterm, final;
     std::vector<double> homework;

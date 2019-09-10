@@ -40,7 +40,7 @@ int main() {
     // write names and grades
     for (vector< Handle<Core> >::size_type i = 0; i != students.size(); ++i) {
         // write name
-        cout << students[i].name()
+        cout << students[i]->name()
              << string(maxlen + 1 - students[i]->name().size(), ' ');
 
         // write grade

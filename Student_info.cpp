@@ -16,20 +16,4 @@ istream& Student_info::read(istream& is) {
     return is;
 }
 
-// copy from Student_info to new Student_info
-Student_info::Student_info(const Student_info& s): cp(0) {
-    if (s.cp) cp = s.cp->clone();
-}
-
 // assign one Student_info to another
-Student_info& Student_info::operator=(const Student_info& s) {
-   if (&s != this) {
-       delete cp;
-       if (s.cp)
-           cp = s.cp->clone();
-       else
-           cp = o;
-
-       return *this;
-   }
-}

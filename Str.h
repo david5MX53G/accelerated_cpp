@@ -10,13 +10,6 @@
 
 class Str {
 public:
-    Str& operator+=(const Str s) {
-        data.make_unique();
-        std::copy(s.data->begin(), s.data->end(),
-                std::back_inserter(*data));
-        return *this;
-    }
-
     typedef Vec<char>::size_type size_type;
 
     // constructors
@@ -32,6 +25,15 @@ public:
     }
 
     // operators
+    friend std::istream& operator>>(std::istream&, Str&);
+
+    Str& operator+=(const Str s) {
+        data.make_unique();
+        std::copy(s.data->begin(), s.data->end(),
+                  std::back_inserter(*data));
+        return *this;
+    }
+
     char& operator[](size_type i) {
         data.make_unique();
         return (*data)[i];
@@ -45,7 +47,6 @@ private:
     Ptr< Vec<char> > data;
 };
 
-friend std::istream& operator>>(std::istream&, Str&);
 std::ostream& operator<<(std::ostream&, const Str&);
 Str operator+(const Str&, const Str&);
 

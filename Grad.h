@@ -6,6 +6,7 @@
 #define ACCELERATED_CPP_GRAD_H
 #include "Core.h"
 #include "Student_info.h"
+#include <iostream>
 
 class Grad: public Core {
 public:
@@ -15,7 +16,13 @@ public:
 
     // other stuff
     double grade() const;
-    std::istream& read(std::istream&);
+
+    std::istream& read(std::istream& in) {
+        read_common(in);
+        in >> thesis;
+        read_hw(in, homework);
+        return in;
+    };
 protected:
     Grad* clone() const { return new Grad(*this); }
 private:

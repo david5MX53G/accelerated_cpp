@@ -2,16 +2,27 @@
 // Created by branch on 8/19/19.
 //
 
-#include <string>
 #include "Core.h"
 
 using std::istream;
 using std::string;
+using std::vector;
 
 string Core::name() const { return n; }
 
 double Core::grade() const {
     return ::grade(midterm, final, homework);
+}
+
+istream& Core::read_hw(istream& in, vector<double>& hw) {
+    if (in) {
+        hw.clear();
+        double x;
+        while (in >> x)
+            hw.push_back(x);
+        in.clear();
+    }
+    return in;
 }
 
 istream& Core::read_common(istream& in) {

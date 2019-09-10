@@ -9,10 +9,10 @@
 class Student_info {
 public:
     // constructors and copy control
-    Student_info(): cp(0) { }
-    Student_info(std::istream& is): cp(0) { read(is); }
+    Student_info() { }
+    Student_info(std::istream& is) { read(is); }
 
-    // operations
+    // other
     std::istream& read(std::istream&);
 
     std::string name() const {
