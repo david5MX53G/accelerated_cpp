@@ -30,15 +30,12 @@ istream& Core::read_common(istream& in) {
     return in;
 }
 
-bool compare(const Core& c1, const Core& c2) {
-    return c1.name() < c2.name();
-}
+istream& Core::read(istream& in) {
+    read_common(in);
+    read_hw(in, homework);
+    return in;
+};
 
-bool compare_grades(const Core& c1, const Core& c2) {
-    return c1.grade() < c2.grade();
+bool compare_Core_Handles(const Handle<Core> &hc1, const Handle<Core> &hc2) {
+    return hc1->name() < hc2->name();
 }
-
-bool compare_Core_ptrs(const Core *cp1, const Core *cp2) {
-    return compare(*cp1, *cp2);
-}
-

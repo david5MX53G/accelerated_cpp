@@ -30,15 +30,12 @@ protected:
     std::istream& read_common(std::istream&);
     double midterm, final;
     std::vector<double> homework;
+
 private:
     // accessible only to this class
     std::string n;
 };
 
-bool compare_Core_ptrs(const Core*, const Core*);
-
-bool compare_Core_Handles(const Handle<Core>& hc1, const Handle<Core>& hc2) {
-    return hc1->name() < hc2->name();
-}
+bool compare_Core_Handles(const Handle<Core>& hc1, const Handle<Core>& hc2);
 
 #endif //ACCELERATED_CPP_CORE_H
