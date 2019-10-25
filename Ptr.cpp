@@ -5,24 +5,9 @@
 #include "Ptr.h"
 
 template<class T>
-Ptr<T>::~Ptr() {
-    if (--*refptr == 0) {
-        delete refptr;
-        delete p;
-    }
-}
-template <class T>
 T& Ptr<T>::operator*() const {
     if (p)
         return *p;
-    throw std::runtime_error("unbound Ref_handle");
-}
-
-template<class T>
-T *Ptr<T>::operator->() const {
-    if (p)
-        return p;
-    throw std::runtime_error("unbound Ref_handle");
 }
 
 template <class T> T* clone(const T* tp) {

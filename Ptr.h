@@ -8,6 +8,7 @@
 #include <cstddef>
 #include "vec.h"
 #include <stdexcept>
+#include <iostream>
 
 template <class T>
 class Ptr {
@@ -16,16 +17,50 @@ public:
     void make_unique();
 
     // constructors
-    Ptr(): p(0), refptr(new size_t(1)) { }
+    Ptr(): p(0), refptr(new size_t(1)) {
+        //std::cout << "Ptr()" << std::endl;
+    }
+
     Ptr(T* t): p(t), refptr(new size_t(1)) { }
-    Ptr(const Ptr& h): p(h.p), refptr(h.refptr) { ++*refptr; }
-    ~Ptr();
+
+    Ptr(const Ptr& h): p(h.p), refptr(h.refptr) {
+        //std::cout << "Ptr(const Ptr&)" << std::endl;
+        ++*refptr;
+    }
+
+    ~Ptr() {
+        if (--*refptr == 0) {
+            delete refptr;
+            delete p;
+        }
+    }
 
     // operators
-    Ptr& operator=(const Ptr&);
+    Ptr<T>& operator=(const Ptr& ptr) {
+        ++*ptr.refptr;
+
+        // free left-hand side, destroying pointers where appropriate
+        if (--*refptr == 0) {
+            delete refptr;
+            delete p;
+        }
+
+        // copy in values from the right-hand side
+        refptr = ptr.refptr;
+        p = ptr.p;
+        return *this;
+    }
+
     operator bool() const { return p; }
     T& operator*() const;
-    T* operator->() const;
+
+    T* operator->() const {
+        if (p) {
+            return p;
+        }
+        throw std::runtime_error("unbound Ptr!!!");
+    }
+
 private:
     T* p;
     std::size_t* refptr;
