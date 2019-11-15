@@ -5,7 +5,6 @@
 #ifndef ACCELERATED_CPP_GRAD_H
 #define ACCELERATED_CPP_GRAD_H
 #include "Core.h"
-#include "Student_info.h"
 #include <iostream>
 
 class Grad: public Core {
