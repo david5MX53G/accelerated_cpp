@@ -1,3 +1,1 @@
-## TBD
-Build C++ Windows apps
-https://docs.microsoft.com/en-us/azure/devops/pipelines/apps/windows/cpp?view=azure-devops
+This is a learning project based on "Accelerated C++" by Koenig and Moo.
