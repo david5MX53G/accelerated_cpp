@@ -5,28 +5,37 @@
 #include "grade.cpp"
 #include "median.cpp"
 #include "Student_info.cpp"
+#include <filesystem>
 
 using std::vector;
 using std::ifstream;
 using std::ofstream;
 using std::istream;
+using std::endl;
+
+namespace fs = std::__fs::filesystem;
 
 TEST(acceleratedCppTestSuite, mainTest){
     vector<Student_info> students;
     Student_info s;
 
     // read in ../students.txt
-    ifstream ifs("../students.txt");
+    ifstream ifs;
+    ifs.open("../../students.txt", std::ifstream::out);
 
-    while (s.read(ifs))
-        students.push_back(s);
+    EXPECT_TRUE(ifs.is_open()) << "failed to open students.txt using current path: " + fs::current_path().string();
 
-    ifs.close();
+    if (ifs.is_open()) {
+        while (s.read(ifs)) {
+            students.push_back(s);
+        }
+        ifs.close();
+    }
 
-    sort(students.begin(), students.end(), Student_info::compare);
+    EXPECT_GT(students.size(),0) << "failed to instantiate students vector";
+
+    /*sort(students.begin(), students.end(), Student_info::compare);
 
     ofstream ofs("../students_out.txt");
-    ofs.close();
-
-    EXPECT_GT(students.size(),0);
+    ofs.close();*/
 }
