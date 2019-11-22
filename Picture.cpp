@@ -2,8 +2,8 @@
 // Created by Macbook Air on 10/6/19.
 //
 
-#ifndef ACCELERATED_CPP_PICTURE_H
-#define ACCELERATED_CPP_PICTURE_H
+#ifndef ACCELERATED_CPP_PICTURE_CPP
+#define ACCELERATED_CPP_PICTURE_CPP
 
 #include <string>
 #include <Ptr.h>
@@ -214,4 +214,4 @@ std::ostream& operator<<(std::ostream& os, const Picture& picture) {
     return os;
 };
 
-#endif //ACCELERATED_CPP_PICTURE_H
+#endif //ACCELERATED_CPP_PICTURE_CPP

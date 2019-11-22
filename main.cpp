@@ -1,7 +1,7 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cert-msc30-c"
 
-#include <Picture.h>
+#include <Picture.cpp>
 #include <iostream>
 
 using std::endl;

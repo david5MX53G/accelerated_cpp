@@ -26,6 +26,6 @@ add_executable(accelerated_cpp
         Student_info.cpp
         Student_info.h
         vec.h
-        Picture.h)
+        Picture.cpp)
 
 add_subdirectory(Google_tests)

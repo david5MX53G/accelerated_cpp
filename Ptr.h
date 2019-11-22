@@ -17,16 +17,9 @@ public:
     void make_unique();
 
     // constructors
-    Ptr(): p(0), refptr(new size_t(1)) {
-        //std::cout << "Ptr()" << std::endl;
-    }
-
+    Ptr(): p(0), refptr(new size_t(1)) { }
     Ptr(T* t): p(t), refptr(new size_t(1)) { }
-
-    Ptr(const Ptr& h): p(h.p), refptr(h.refptr) {
-        //std::cout << "Ptr(const Ptr&)" << std::endl;
-        ++*refptr;
-    }
+    Ptr(const Ptr& h): p(h.p), refptr(h.refptr) { ++*refptr; }
 
     ~Ptr() {
         if (--*refptr == 0) {
@@ -36,7 +29,7 @@ public:
     }
 
     // operators
-    Ptr<T>& operator=(const Ptr& ptr) {
+    Ptr<T>& operator=(const Ptr<T>& ptr) {
         ++*ptr.refptr;
 
         // free left-hand side, destroying pointers where appropriate
@@ -49,7 +42,7 @@ public:
         refptr = ptr.refptr;
         p = ptr.p;
         return *this;
-    }
+    };
 
     operator bool() const { return p; }
     T& operator*() const;
