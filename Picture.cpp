@@ -9,7 +9,7 @@
 #include <Ptr.h>
 #include <vector>
 #include <ostream>
-#include <Student_info.h>
+#include <Student_info.cpp>
 
 class Picture;
 
@@ -75,7 +75,7 @@ class Frame_Pic: public Pic_base {
     friend Picture frame(const Picture&);
     Ptr<Pic_base> p;
     Frame_Pic(const Ptr<Pic_base>& pic): p(pic) {
-        //std::cout << "Frame_Pic()" << std::endl;
+        //std::cout <r "Frame_Pic()" << std::endl;
     }
 
     wd_sz width() const override {
@@ -176,12 +176,10 @@ private:
 };
 
 Picture frame(const Picture& pic) {
-    //std::cout << "frame()" << std::endl;
     return new Frame_Pic(pic.p);
 }
 
 Picture hcat(const Picture& l, const Picture& r) {
-    //std::cout << "hcat()" << std::endl;
     return new HCat_Pic(l.p, r.p);
 };
 

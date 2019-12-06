@@ -24,7 +24,6 @@ add_executable(accelerated_cpp
         split.cpp
         split.h
         Student_info.cpp
-        Student_info.h
         vec.h
         Picture.cpp)
 

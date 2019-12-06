@@ -4,11 +4,11 @@
 #include "Grad.cpp"
 #include "grade.cpp"
 #include "median.cpp"
-#include "Student_info.cpp"
 #include <filesystem>
 #include <iostream>
 #include "Ptr.cpp"
 #include "Ptr.h"
+#include "Picture.cpp"
 
 using std::vector;
 using std::ifstream;
@@ -25,20 +25,15 @@ TEST(acceleratedCppTestSuite, ptrTest) {
 }
 
 TEST(acceleratedCppTestSuite, pictureTest){
-    vector<string> strv;
-    ifstream ifs;
-    ifs.open("../../students.txt", std::ifstream::out);
+    vector<string> v;
+    v.push_back("this");
+    v.push_back("is");
+    v.push_back("the");
+    v.push_back("forest");
+    v.push_back("primeval");
+    Picture p(v);
 
-    EXPECT_TRUE(ifs.is_open()) << "failed to open students.txt from path: " + fs::current_path().string();
-
-    string x;
-
-    while(ifs >> x) {
-        strv.push_back(x);
-        std::cout << x << endl;
-    }
-
-    ifs.close();
+    std::cout << endl << frame(p);
 }
 
 TEST(acceleratedCppTestSuite, studentTest){

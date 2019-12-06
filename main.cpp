@@ -20,7 +20,7 @@ int main() {
     sort(students.begin(), students.end(), Student_info::compare);
     cout << "First student: " << students[0].name() << std::endl;
 
-    cout << frame(histogram(students)) << endl;
+    //cout << frame(histogram(students)) << endl;
     return 0;
 }
 
