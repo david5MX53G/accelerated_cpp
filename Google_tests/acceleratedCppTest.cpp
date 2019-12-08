@@ -24,7 +24,37 @@ TEST(acceleratedCppTestSuite, ptrTest) {
     EXPECT_EQ(*ptr, "hello!");
 }
 
-TEST(acceleratedCppTestSuite, pictureTest){
+TEST(acceleratedCppTestSuite, pictureVcatTest) {
+    vector<string> v0;
+    v0.push_back("this ");
+    v0.push_back("is ");
+    v0.push_back("the ");
+    Picture p0(v0);
+
+    vector<string> v1;
+    v1.push_back("forest ");
+    v1.push_back("primeval ");
+    Picture p1(v1);
+
+    std::cout << endl << vcat(p0, p1);
+}
+
+TEST(acceleratedCppTestSuite, pictureHcatTest) {
+    vector<string> v0;
+    v0.push_back("this ");
+    v0.push_back("is ");
+    v0.push_back("the ");
+    Picture p0(v0);
+
+    vector<string> v1;
+    v1.push_back("forest ");
+    v1.push_back("primeval ");
+    Picture p1(v1);
+
+    std::cout << endl << hcat(p0, p1);
+}
+
+TEST(acceleratedCppTestSuite, pictureFrameTest) {
     vector<string> v;
     v.push_back("this");
     v.push_back("is");
@@ -36,7 +66,24 @@ TEST(acceleratedCppTestSuite, pictureTest){
     std::cout << endl << frame(p);
 }
 
-TEST(acceleratedCppTestSuite, studentTest){
+TEST(acceleratedCppTestSuite, histogramTest) {
+   vector<Student_info> students;
+   Student_info s;
+
+   ifstream ifs;
+   ifs.open("../../students.txt", std::ifstream::out);
+
+   if (ifs.is_open()) {
+       while (s.read(ifs)) {
+           students.push_back(s);
+       }
+       ifs.close();
+   }
+
+   std::cout << endl << histogram(students);
+}
+
+TEST(acceleratedCppTestSuite, studentTest) {
     vector<Student_info> students;
     Student_info s;
 
