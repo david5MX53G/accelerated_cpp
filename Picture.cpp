@@ -193,6 +193,8 @@ Picture histogram(const std::vector<Student_info>& students) {
 
     // for each student
     for (std::vector<Student_info>::const_iterator it = students.begin(); it != students.end(); ++it) {
+        // we have a problem on loop 1: "names" and "grades" are null
+        // instead of vcat(null, name()), construct an empty string on the first loop
         names = vcat(names, std::vector<std::string>(1, it->name()));
         grades = vcat(grades, std::vector<std::string>(1, " " + std::string(it->grade() / 5, '=')));
     }
