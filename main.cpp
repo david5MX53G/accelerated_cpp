@@ -1,26 +1,34 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cert-msc30-c"
 
-#include <Picture.cpp>
+#include <Picture.h>
+#include <Student_info.cpp>
 #include <iostream>
+#include <fstream>
 
 using std::endl;
 using std::cout;
 using std::cin;
 using std::vector;
+using std::ifstream;
 
 int main() {
     vector<Student_info> students;
     Student_info s;
 
-    while (s.read(cin))
-        students.push_back(s);
-    cout << "students: " << students.size() << endl;
+    ifstream ifs;
+    ifs.open("../students.txt", std::ifstream::out);
+
+    if (ifs.is_open()) {
+        while (s.read(ifs)) {
+            students.push_back(s);
+        }
+        ifs.close();
+    }
 
     sort(students.begin(), students.end(), Student_info::compare);
-    cout << "First student: " << students[0].name() << std::endl;
 
-    //cout << frame(histogram(students)) << endl;
+    cout << frame(histogram(students)) << endl;
     return 0;
 }
 

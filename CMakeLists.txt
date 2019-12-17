@@ -25,6 +25,8 @@ add_executable(accelerated_cpp
         split.h
         Student_info.cpp
         vec.h
-        Picture.cpp)
+        Picture.cpp
+        Picture.h)
+
 
 add_subdirectory(Google_tests)
