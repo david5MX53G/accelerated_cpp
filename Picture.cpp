@@ -92,7 +92,7 @@ class HCat_Pic: public Pic_base {
     };
 
     ht_sz height() const override {
-        return left->width() + right->width();
+        return left->height();
     };
 
     void display(std::ostream& os, ht_sz row, bool do_pad) const override {
@@ -113,19 +113,32 @@ Picture vcat(const Picture& t, const Picture& b) {
     return new VCat_Pic(t.p, b.p);
 };
 
+using std::vector;
+using std::string;
 Picture histogram(const std::vector<Student_info>& students) {
     // begin with empty string values to avoid problems with null later on
-    Picture names(std::vector<std::string>(1, ""));
-    Picture grades(std::vector<std::string>(1, ""));
+    Picture names;
+    Picture grades;
 
-    // for each student
+    // concatenate the names and grades of all students
     for (std::vector<Student_info>::const_iterator it = students.begin(); it != students.end(); ++it) {
-        names = vcat(names, std::vector<std::string>(1, it->name()));
-        grades = vcat(grades, std::vector<std::string>(1, " " + std::string(it->grade() / 5, '=')));
+        // concatenate first and second names and grades on first iteration
+        if (it == students.begin()) {
+            names = vcat(vector<string>(1, students[0].name()),
+                         vector<string>(1, students[1].name()));
+            grades = vcat(vector<string>(1, " " + string(students[0].grade() / 5, '=')),
+                          vector<string>(1, " " + string(students[1].grade() / 5, '=')));
+            it++;
+        }
+
+        // subsequently, concatenate previous value with next
+        else {
+            names = vcat(names, vector<string>(1, it->name()));
+            grades = vcat(grades, vector<string>(1, " " + string(it->grade() / 5, '=')));
+        }
     }
 
     // horizontally concatenate the name and grade pictures to combine them
-    //std::cout << "histogram()" << std::endl;
     return hcat(names, grades);
 }
 

@@ -40,30 +40,53 @@ TEST(acceleratedCppTestSuite, pictureVcatTest) {
 }
 
 TEST(acceleratedCppTestSuite, pictureHcatTest) {
-    vector<string> v0;
-    v0.push_back("this ");
-    v0.push_back("is ");
-    v0.push_back("the ");
-    Picture p0(v0);
+    vector<Student_info> students;
+    Student_info s;
 
-    vector<string> v1;
-    v1.push_back("forest ");
-    v1.push_back("primeval ");
-    Picture p1(v1);
+    ifstream ifs;
+    ifs.open("../../students.txt", std::ifstream::out);
 
-    std::cout << endl << hcat(p0, p1);
+    if (ifs.is_open()) {
+        while (s.read(ifs)) {
+            students.push_back(s);
+        }
+        ifs.close();
+    }
+
+    vector<string> names;
+    vector<string> grades;
+
+    for (std::vector<Student_info>::const_iterator it = students.begin(); it != students.end(); ++it) {
+        names.push_back(it->name());
+        grades.push_back(" " + string(it->grade()/5,'='));
+    }
+
+    std::cout << endl << hcat(names, grades);
 }
 
 TEST(acceleratedCppTestSuite, pictureFrameTest) {
-    vector<string> v;
-    v.push_back("this");
-    v.push_back("is");
-    v.push_back("the");
-    v.push_back("forest");
-    v.push_back("primeval");
-    Picture p(v);
+    vector<Student_info> students;
+    Student_info s;
 
-    std::cout << endl << frame(p);
+    ifstream ifs;
+    ifs.open("../../students.txt", std::ifstream::out);
+
+    if (ifs.is_open()) {
+        while (s.read(ifs)) {
+            students.push_back(s);
+        }
+        ifs.close();
+    }
+
+    vector<string> names;
+    vector<string> grades;
+
+    for (std::vector<Student_info>::const_iterator it = students.begin(); it != students.end(); ++it) {
+        names.push_back(it->name());
+        grades.push_back(" " + string(it->grade()/5,'='));
+    }
+
+    std::cout << endl << frame(hcat(names, grades));
 }
 
 TEST(acceleratedCppTestSuite, histogramTest) {
